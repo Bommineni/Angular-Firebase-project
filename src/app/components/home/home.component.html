@@ -1,0 +1,105 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+
+    <!--heading on the nav bar-->
+    <p class="navbar-header pull-left">
+      <a class="navbar-brand thick">
+        <a href="/"><b>Logo</b></a>
+      </a>
+    </p>
+
+    <!--tick mark-->
+    <p class="navbar-text pull-right">
+      <button class="btn btn-primary btn-block"
+         [routerLink]="['/addpost']">Add Post</button>
+    </p>
+
+  </div>
+</nav>
+
+<div class="container" style="margin-top: 85px;">
+    <div *ngIf="successMessage"
+         class="alert alert-success">
+      "Succesfully deleted"
+    </div>
+    <div *ngIf="successUpdated"
+         class="alert alert-success">
+      "Successfully updated"
+    </div>
+    <div class="form-group">
+      <input type="text"
+             class="form-control input-lg"
+             name="search"
+             placeholder="Search"
+             [(ngModel)]="filter"
+      />
+    </div>
+    <div class="content" style="margin-top: 20px;" *ngFor="let eachPost of posts |filter:filter">
+      <div class="row">
+        <div class="col-sm-10">
+          <h4><b [innerHTML]="eachPost.question"></b></h4>
+          <p  [froalaView]= "eachPost.answer"></p>
+          <p [innerHTML]="eachPost.tag"></p> <br/>
+          Date Posted: {{eachPost.datePosted}}<br/>
+          <br/>
+        </div>
+        <div class="col-sm-2">
+          <button (click)="deletePost(eachPost)"
+                  class="btn btn-danger pull-right">
+            <span class="glyphicon glyphicon-remove"></span>
+          </button>
+          <button
+            class="btn btn-primary pull-right"
+            data-toggle="modal"
+            data-target="#myModal"
+            (click)= "getPost(eachPost)"
+          >
+            <span class="glyphicon glyphicon-edit"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+              <input type="text"
+                     class="form-control input-lg"
+                     name="question"
+                     #question
+                     value="{{editPost?.question}}"
+                     (ngModel)= "question"
+              /><br/><br/>
+              <textarea [froalaEditor]
+                        [(froalaModel)]="editorContent"
+                        type="text"
+                        name="answer"
+                        id="answer"
+                        #answer
+                        class="form-control"
+                        value="{{editPost?.answer}}"
+
+
+              ></textarea><br/><br/>
+
+              <input type="text"
+                     class="form-control input-lg"
+                     name="tag"
+                     #tag
+                     value="{{editPost?.tag}}"
+                     (ngModel)="tag"
+              /><br/><br/>
+              <button type="button" type="submit" class="btn btn-primary center-block" (click)="updatePost(editPost.key,question.value,answer.value,tag.value)" data-dismiss="modal">Update the post</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+
+

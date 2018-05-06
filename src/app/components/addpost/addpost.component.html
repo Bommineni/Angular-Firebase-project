@@ -1,0 +1,92 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+
+    <!--heading on the nav bar-->
+    <p class="navbar-header pull-left">
+      <a class="navbar-brand thick" href="/">
+        <b>Logo</b>
+      </a>
+    </p>
+
+    <!--tick mark-->
+    <p class="navbar-text pull-right">
+      <button class="btn btn-primary btn-block"
+              [routerLink]="['/addpost']">Add Post</button>
+    </p>
+
+  </div>
+</nav>
+
+<!--Body part -->
+
+<div class="container" style="margin-top: 85px;">
+
+  <div *ngIf="alertMessage"
+       class="alert alert-danger">
+    "Failed to create"
+  </div>
+
+  <div *ngIf="successMessage"
+  class="alert alert-success alert-dismissible">
+    <a href="/" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    "Successfully Created"
+  </div>
+
+  <form *ngIf="!successMessage" (ngSubmit) = "createPost()" #f="ngForm">
+
+    <label>Write your question</label>
+    <input name="question"
+           type="text"
+           class="form-control input-lg"
+           ngModel
+           required
+           #question="ngModel"/>
+    <span class="help-block" *ngIf="!question.valid && question.touched">
+      Please Enter Question!
+    </span><br/>
+
+    <label>Write your answer</label>
+    <textarea [froalaEditor]
+              name="answer"
+              type="text"
+              class="form-control"
+              ngModel
+              required
+              #answer="ngModel"></textarea>
+    <span class="help-block" *ngIf="!answer.valid && answer.touched">
+      Please enter answer!
+    </span><br/><br/>
+
+    <label>Enter tags</label>
+    <input name="tag"
+           type="text"
+           class="form-control input-lg"
+           ngModel
+           required
+           #tag="ngModel"/>
+    <span class="help-block" *ngIf="!tag.valid && tag.touched">
+      Please enter tags!
+    </span><br/><br/>
+
+    <table class="table table-responsive borderless">
+      <tbody>
+      <tr>
+          <td>
+            <button class="btn btn-primary btn-lg btn-block" type="submit" [routerLink]="['/']">Save Draft</button>
+          </td>
+          <td>
+            <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled] = "!f.valid">Publish</button>
+          </td>
+          <td>
+            <button class="btn btn-primary btn-lg btn-block" [routerLink]="['/']">Reset</button>
+          </td>
+          <td>
+            <button class="btn btn-primary btn-lg btn-block" [routerLink]="['/']">Cancel</button>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </form>
+
+</div>
