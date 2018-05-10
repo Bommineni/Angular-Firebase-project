@@ -1,5 +1,6 @@
 # Angular-Firebase-project
 Link for demo:https://posting-project-1c735.firebaseapp.com/
+
 Phase 1:
 1.	Design and develop a website using Angular and Firebase.
 2.	Create a addPost page in which Question and Tag should be text box and Answer should be any rich text editor with four buttons save draft, publish, reset, cancel
